@@ -1,0 +1,66 @@
+<div class="row">
+
+    <div class="col-md-4 offset-md-4">
+        <div class="card bg-basic text-dark">
+            <div class="card-body">
+                <div class="card-title">
+                    <h3 class="text-danger">Book Your Flight</h3>
+                </div>
+
+                <form [formGroup]="bookingForm" (ngSubmit)="book()">
+
+                    <div [class]="'form-group'">
+                        <label for="passengerName">Passenger Name</label>
+                        <input type="text" [class]="'form-control'" id="passengerName" formControlName="passengerName">
+                    </div>
+
+                    <div *ngIf="bookingForm.controls.passengerName.invalid && bookingForm.controls.passengerName.dirty" 
+                        [class]="'alert alert-danger'" id="passengerNameError">
+                        <span *ngIf="bookingForm.controls.passengerName.errors?.required">Field is Required</span>
+                        <span *ngIf="bookingForm.controls.passengerName.errors?.pattern">Name Should include alphabets only</span>
+                     </div>
+
+
+
+                     <div [class]="'form-group'">
+                        <label for="noOfTickets">Number Of Tickets</label>
+                        <input type="number" autocomplete="off" [class]="'form-control'" id="noOfTickets" formControlName="noOfTickets">
+                    </div>
+
+                    <div *ngIf="bookingForm.controls.noOfTickets.invalid && bookingForm.controls.noOfTickets.dirty" 
+                        [class]="'alert alert-danger'" id="noOfTicketsError">
+                        <span *ngIf="bookingForm.controls.noOfTickets.errors?.required">Field is Required</span>
+                        <span *ngIf="bookingForm.controls.noOfTickets.errors?.min">Enter greater than 0</span>
+                     </div>
+
+
+                     <div [class]="'form-group'">
+                        <label for="flightId">Flight ID</label>
+                        <!-- <input type="text" [class]="'form-control'" id="flightId" formControlName="flightId"> -->
+                        <select name="flightId" id="flightId" [class]="'form-control'" formControlName="flightId">
+                            <!-- <option selected>Please Select</option> -->
+                            <option *ngFor="let f of flights;" value="{{f}}">{{ f }}</option>
+                            </select>
+                    </div>
+
+                    <div *ngIf="bookingForm.controls.flightId.invalid && bookingForm.controls.flightId.dirty" 
+                        [class]="'alert alert-danger'" id="flightIdError">
+                        <span *ngIf="bookingForm.controls.flightId.errors?.required">Field is Required</span>
+                        <span *ngIf="bookingForm.controls.flightId.errors?.flightId">Enter Valid Flight ID</span>
+                     </div>
+
+                    
+                    <button type="submit" [class]="'btn btn-info'" [disabled]="bookingForm.invalid">Book</button>
+
+                    <div *ngIf="successMessage">
+                        <span [class]="'text-success'" id="successMessage">{{successMessage}}</span>
+                    </div>
+                    <div *ngIf="errorMessage">
+                        <span [class]="'text-success'" id="errorMessage">{{errorMessage}}</span>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
