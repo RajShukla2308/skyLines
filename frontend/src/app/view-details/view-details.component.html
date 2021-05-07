@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+            <div class="card" *ngFor="let f of flightDetails">
+                <div class="text text-warning">{{f.flightId}}</div>
+                <div class="text text-warning">Booking ID : {{f.bookingId}}</div>
+                <div class="text text-warning">PassengerName : {{f.passengerName}}</div>
+                <div class="text text-warning">NO Of Ticktes : {{f.noOfTickets}}</div>
+                <div class="text text-warning">Cost : {{f.totalAmount}}</div>
+
+                    <button class="btn btn-primary" (click)="updateBooking(f.bookingId,f.flightId)">Update Booking</button>
+                    <button class="btn btn-danger" (click)="delete(f.bookingId)" [disabled]="f.totalAmount<5000">Delete Booking</button>
+                    <button class="btn btn-info" (click)="showRefund(f.totalAmount,f.bookingId)" [disabled]="f.totalAmount<5000">Refund</button>
+                
+
+                <div class="text-center text-warning" *ngIf="refund && bkd==f.bookingId && toggle">Estimated Refund : 
+                    {{refund | currency:'INR'}}
+                </div>
+            </div>
+           
+
+    </div>
+    <div *ngIf="successMessage">
+        <span [class]="'text-success'" id="successMessage">{{successMessage}}</span>
+    </div>
+
+    <div *ngIf="errorMessage">
+        <span [class]="'text-success'" id="errorsMessage">{{errorMessage}}</span>
+    </div>
+
+
+</div>
