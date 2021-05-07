@@ -1,0 +1,43 @@
+<div class="row">
+    <div class="col-md-4 offset-md-4">
+        <div class="card bg-basic text-dark">
+                <div class="card-body">
+                    <div class="card-title">
+                            <h3 class="text-danger">Update Flight</h3>
+                    </div>
+
+                    <form [formGroup]="updateForm" (ngSubmit)="updateBooking()">
+
+                        <div [class]="'form-group'">
+                            <label for="bookingId">Booking Id</label>
+                            <input type="text" autocomplete="off" [class]="'form-control'" id="bookingId" formControlName="bookingId">
+                        </div>
+                        
+                        <div [class]="'form-group'">
+                            <label for="noOfTickets">Number Of Tickets</label>
+                            <input type="number" [class]="'form-control'" id="noOfTickets" formControlName="noOfTickets">
+                        </div>
+                        <div *ngIf="updateForm.controls.noOfTickets.invalid && updateForm.controls.noOfTickets.dirty" 
+                            [class]="'alert alert-danger'" id="noOfTicketsError">
+                            <span *ngIf="updateForm.controls.noOfTickets.errors?.required">Field is Required</span>
+                            <span *ngIf="updateForm.controls.noOfTickets.errors?.min">Enter greater than 0</span>
+                         </div>
+
+                         <div [class]="'form-group'">
+                            <label for="flightId">Flight ID</label>
+                            <input type="text" [class]="'form-control'" id="flightId" formControlName="flightId">
+                        </div>
+
+                        <button type="submit" [class]="'btn btn-info'" [disabled]="updateForm.invalid">Update</button>
+                            <div *ngIf="successMessage">
+                                <span [class]="'text-success'" id="successMessage">{{successMessage}}</span>
+                            </div>
+                            <div *ngIf="errorMessage">
+                                <span [class]="'text-success'" id="errorMessage">{{errorMessage}}</span>
+                            </div>
+
+                        </form>
+                </div>
+        </div>
+    </div>
+</div>
